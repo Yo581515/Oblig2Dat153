@@ -1,6 +1,5 @@
 package com.example.oblig2dat153.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,9 +68,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public void setImages(ArrayList<Image> newImageList) {
         final DiffUtil.DiffResult result = DiffUtil.calculateDiff
                 (new ImageDiffCallback(imageList, newImageList), false);
-        if (newImageList != null) {
-            Log.d("Yosafe", "" + newImageList.size());
-        }
+
         imageList = newImageList;
         result.dispatchUpdatesTo(ImageAdapter.this);
 
