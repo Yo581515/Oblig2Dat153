@@ -69,7 +69,6 @@ public class ImageListActivity extends AppCompatActivity {
         imageAdapter.setOnDeleteClickListener(new ImageAdapter.OnDeleteClickListener() {
             @Override
             public void onDeleteClick(Image image) {
-//                Toast.makeText(ImageListActivity.this, "hello", Toast.LENGTH_SHORT).show();
                 Log.d("Yosafe", "delete... image with id " + image.getId());
                 imageListActivityViewModel.deleteImage(image);
             }

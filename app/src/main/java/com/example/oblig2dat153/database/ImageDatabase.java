@@ -1,7 +1,6 @@
 package com.example.oblig2dat153.database;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -60,9 +59,6 @@ public abstract class ImageDatabase extends RoomDatabase {
             public void run() {
 
                 ConverterHelper converterHelper = new ConverterHelper();
-
-                // Categories
-                Log.d("Yosafe", "here");
 
 //                imageDAO.insert(image);
 
