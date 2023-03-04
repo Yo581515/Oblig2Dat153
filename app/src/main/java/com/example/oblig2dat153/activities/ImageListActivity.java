@@ -3,6 +3,7 @@ package com.example.oblig2dat153.activities;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.oblig2dat153.R;
 import com.example.oblig2dat153.adapters.ImageAdapter;
 import com.example.oblig2dat153.databinding.ActivityImageListBinding;
+import com.example.oblig2dat153.fragments.InsertImageFragment;
 import com.example.oblig2dat153.model.Image;
 import com.example.oblig2dat153.viewmodel.ImageListActivityViewModel;
 
@@ -82,8 +84,16 @@ public class ImageListActivity extends AppCompatActivity {
 
         public void onAddClicked(View view) {
             // insert Image from here
+            Toast.makeText(ImageListActivity.this, "add", Toast.LENGTH_SHORT).show();
+            InsertImageFragment insertImageFragment = new InsertImageFragment();
+            insertImageFragment.setOnAddClickListener(new InsertImageFragment.OnAddClickListener() {
+                @Override
+                public void onAddClick(Image image) {
+                    Toast.makeText(ImageListActivity.this, "adding " + image.getImageName(), Toast.LENGTH_SHORT).show();
+                    imageListActivityViewModel.addNewImage(image);
+                }
+            });
+            insertImageFragment.show(getSupportFragmentManager(), "adding new image");
         }
-
-
     }
 }

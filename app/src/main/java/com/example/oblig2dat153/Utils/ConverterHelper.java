@@ -17,21 +17,19 @@ public class ConverterHelper {
      * @return byte[]
      */
     @TypeConverter
-    public byte[] BitmapToByteArray(Bitmap bitmap) {
+    public static byte[] BitmapToByteArray(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.WEBP_LOSSY, 100, outputStream);
         return outputStream.toByteArray();
     }
 
-    public Bitmap ByteArrayToBitmap(byte[] byteArray) {
+    public static Bitmap ByteArrayToBitmap(byte[] byteArray) {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
     }
 
-//    Bitmap catImage = createBitmapFromDrawable(R.drawable.cat1);
-
-    public byte[] fromDrawableToByteArray(Context context, int imageId) {
+    public static byte[] fromDrawableToByteArray(Context context, int imageId) {
         Bitmap bitmapImage = BitmapFactory.decodeResource(context.getResources(), imageId);
-            return BitmapToByteArray(bitmapImage);
+        return BitmapToByteArray(bitmapImage);
     }
 
 }

@@ -12,7 +12,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.bumptech.glide.Glide;
+import com.example.oblig2dat153.Utils.GliderUtils;
 
 import java.util.Objects;
 
@@ -37,11 +37,7 @@ public class Image extends BaseObservable {
 
     @BindingAdapter("imageBinde")
     public static void loadImage(ImageView view, byte[] imageData) {
-        if (imageData != null) {
-            Glide.with(view.getContext())
-                    .load(imageData)
-                    .into(view);
-        }
+        GliderUtils.insertByteArrayMapToImageView(view, imageData);
     }
 
 

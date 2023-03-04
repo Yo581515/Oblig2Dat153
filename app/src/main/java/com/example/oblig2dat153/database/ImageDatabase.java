@@ -58,15 +58,11 @@ public abstract class ImageDatabase extends RoomDatabase {
             @Override
             public void run() {
 
-                ConverterHelper converterHelper = new ConverterHelper();
-
-//                imageDAO.insert(image);
-
                 // images from drwawable
-                byte[] byteImageClifford = converterHelper.fromDrawableToByteArray(ctx, R.drawable.clifford);
-                byte[] byteImageBrianGriffen = converterHelper.fromDrawableToByteArray(ctx, R.drawable.brian_griffin);
-                byte[] byteImagePluto = converterHelper.fromDrawableToByteArray(ctx, R.drawable.pluto);
-                byte[] byteImageScoopyDooPido = converterHelper.fromDrawableToByteArray(ctx, R.drawable.scooby_doo_pido);
+                byte[] byteImageClifford = ConverterHelper.fromDrawableToByteArray(ctx, R.drawable.clifford);
+                byte[] byteImageBrianGriffen = ConverterHelper.fromDrawableToByteArray(ctx, R.drawable.brian_griffin);
+                byte[] byteImagePluto = ConverterHelper.fromDrawableToByteArray(ctx, R.drawable.pluto);
+                byte[] byteImageScoopyDooPido = ConverterHelper.fromDrawableToByteArray(ctx, R.drawable.scooby_doo_pido);
 
                 Image cliffordImage = new Image();
                 cliffordImage.setImageName("Clifford");
