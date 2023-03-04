@@ -35,7 +35,7 @@ public class Image extends BaseObservable {
     @ColumnInfo(name = "image_wrong_name_2")
     private String imageWrongName2;
 
-    @BindingAdapter("imageData")
+    @BindingAdapter("imageBinde")
     public static void loadImage(ImageView view, byte[] imageData) {
         if (imageData != null) {
             Glide.with(view.getContext())
