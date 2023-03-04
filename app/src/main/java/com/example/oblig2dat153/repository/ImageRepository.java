@@ -24,7 +24,8 @@ public class ImageRepository {
     }
 
     public LiveData<List<Image>> getAllImages(){
-        return imageDAO.getAllImages();
+        images = imageDAO.getAllImages();
+        return images;
     }
 
     public void addImage(Image image){
