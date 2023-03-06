@@ -23,10 +23,6 @@ public class ConverterHelper {
         return outputStream.toByteArray();
     }
 
-    public static Bitmap ByteArrayToBitmap(byte[] byteArray) {
-        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-    }
-
     public static byte[] fromDrawableToByteArray(Context context, int imageId) {
         Bitmap bitmapImage = BitmapFactory.decodeResource(context.getResources(), imageId);
         return BitmapToByteArray(bitmapImage);
