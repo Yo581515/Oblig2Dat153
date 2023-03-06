@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.ImageDecoder;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,6 +49,8 @@ public class InsertImageFragment extends AppCompatDialogFragment {
         image = new Image();
 
     }
+
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -132,10 +135,9 @@ public class InsertImageFragment extends AppCompatDialogFragment {
                         && result.getData() != null) {
                     Uri imageUri = result.getData().getData();
                     try {
-                        Bitmap bitmapImage = MediaStore.Images.Media.getBitmap(
-                                getActivity().getContentResolver(),
-                                imageUri);
-                        byte[] byteImage = ConverterHelper.BitmapToByteArray(bitmapImage);
+                        ImageDecoder.Source source = ImageDecoder.createSource(getActivity().getContentResolver(), imageUri);
+                        Bitmap bitmapImage2 = ImageDecoder.decodeBitmap(source);
+                        byte[] byteImage = ConverterHelper.BitmapToByteArray(bitmapImage2);
                         image.setImageData(byteImage);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
