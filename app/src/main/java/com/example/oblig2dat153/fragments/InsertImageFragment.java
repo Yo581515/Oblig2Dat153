@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.oblig2dat153.R;
@@ -43,10 +46,20 @@ public class InsertImageFragment extends AppCompatDialogFragment {
     // constructor
     public InsertImageFragment() {
         image = new Image();
+
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.baseline_image_search_24);
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        byte[] byteImage = ConverterHelper.BitmapToByteArray(bitmap);
+        image.setImageData(byteImage);
 
         // binding tools
         // 1) initieate binder
@@ -56,6 +69,7 @@ public class InsertImageFragment extends AppCompatDialogFragment {
                 null,
                 false
         );
+
         // 2) set data and set clickhandlers
         insertImageFragmentWindowBinding.setImage(image);
         fragmentClickHandler = new FragmentClickHandler();
@@ -65,6 +79,10 @@ public class InsertImageFragment extends AppCompatDialogFragment {
         View view = insertImageFragmentWindowBinding.getRoot();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
+
+
+
+
 
         builder
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
@@ -104,7 +122,6 @@ public class InsertImageFragment extends AppCompatDialogFragment {
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             );
             launcher.launch(intent);
-            view.setBackground(null);
         }
     }
 
