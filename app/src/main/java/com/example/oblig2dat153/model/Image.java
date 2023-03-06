@@ -29,12 +29,6 @@ public class Image extends BaseObservable {
     @ColumnInfo(name = "image_name")
     private String imageName;
 
-    @ColumnInfo(name = "image_wrong_name_1")
-    private String imageWrongName1;
-
-    @ColumnInfo(name = "image_wrong_name_2")
-    private String imageWrongName2;
-
     @BindingAdapter("imageBinde")
     public static void loadImage(ImageView view, byte[] imageData) {
         GliderUtils.insertByteArrayMapToImageView(view, imageData);
@@ -45,12 +39,10 @@ public class Image extends BaseObservable {
     public Image() {
     }
 
-    public Image(long id, byte[] imageData, String imageName, String imageWrongName1, String imageWrongName2) {
+    public Image(long id, byte[] imageData, String imageName) {
         this.id = id;
         this.imageData = imageData;
         this.imageName = imageName;
-        this.imageWrongName1 = imageWrongName1;
-        this.imageWrongName2 = imageWrongName2;
     }
 
     @Bindable
@@ -82,26 +74,6 @@ public class Image extends BaseObservable {
         this.imageName = imageName;
         notifyPropertyChanged(BR.imageName);
 
-    }
-
-    @Bindable
-    public String getImageWrongName1() {
-        return imageWrongName1;
-    }
-
-    public void setImageWrongName1(String imageWrongName1) {
-        this.imageWrongName1 = imageWrongName1;
-        notifyPropertyChanged(BR.imageWrongName1);
-    }
-
-    @Bindable
-    public String getImageWrongName2() {
-        return imageWrongName2;
-    }
-
-    public void setImageWrongName2(String imageWrongName2) {
-        this.imageWrongName2 = imageWrongName2;
-        notifyPropertyChanged(BR.imageWrongName2);
     }
 
     @Override

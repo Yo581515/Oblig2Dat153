@@ -66,26 +66,18 @@ public abstract class ImageDatabase extends RoomDatabase {
 
                 Image cliffordImage = new Image();
                 cliffordImage.setImageName("Clifford");
-                cliffordImage.setImageWrongName1("Selam");
-                cliffordImage.setImageWrongName2("Semhar");
                 cliffordImage.setImageData(byteImageClifford);
 
                 Image brianGriffenImage = new Image();
                 brianGriffenImage.setImageName("Brian Griffen");
-                brianGriffenImage.setImageWrongName1("Michaela");
-                brianGriffenImage.setImageWrongName2("Emone");
                 brianGriffenImage.setImageData(byteImageBrianGriffen);
 
                 Image plutoImage = new Image();
                 plutoImage.setImageName("Pluto");
-                plutoImage.setImageWrongName1("Benedikte");
-                plutoImage.setImageWrongName2("Arsema");
                 plutoImage.setImageData(byteImagePluto);
 
                 Image scoopyDooPidoImage = new Image();
                 scoopyDooPidoImage.setImageName("Scoopy Doo Pido");
-                scoopyDooPidoImage.setImageWrongName1("Azeb");
-                scoopyDooPidoImage.setImageWrongName2("Yosafe");
                 scoopyDooPidoImage.setImageData(byteImageScoopyDooPido);
 
                 imageDAO.insert(cliffordImage);

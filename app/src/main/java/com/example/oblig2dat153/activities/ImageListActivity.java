@@ -84,7 +84,6 @@ public class ImageListActivity extends AppCompatActivity {
 
         public void onAddClicked(View view) {
             // insert Image from here
-            Toast.makeText(ImageListActivity.this, "add", Toast.LENGTH_SHORT).show();
             InsertImageFragment insertImageFragment = new InsertImageFragment();
             insertImageFragment.setOnAddClickListener(new InsertImageFragment.OnAddClickListener() {
                 @Override
