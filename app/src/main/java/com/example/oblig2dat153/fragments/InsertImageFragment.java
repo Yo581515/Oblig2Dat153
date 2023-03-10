@@ -47,7 +47,6 @@ public class InsertImageFragment extends AppCompatDialogFragment {
     // constructor
     public InsertImageFragment() {
         image = new Image();
-
     }
 
 
@@ -82,10 +81,6 @@ public class InsertImageFragment extends AppCompatDialogFragment {
         View view = insertImageFragmentWindowBinding.getRoot();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-
-
-
-
 
         builder
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {

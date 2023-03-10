@@ -42,12 +42,11 @@ public class ImageListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_list);
-
         imageListActivityViewModel = new ViewModelProvider(this).get(ImageListActivityViewModel.class);
-
         activityImageListBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_list);
         clickHandler = new ImageListActivityClickHandler();
         activityImageListBinding.setClickHandler(clickHandler);
+        imageAdapter = new ImageAdapter();
 
         imageListActivityViewModel.getAllImages().observe(this, new Observer<List<Image>>() {
             @Override
@@ -60,14 +59,7 @@ public class ImageListActivity extends AppCompatActivity {
                 LoadRecyclerView();
             }
         });
-    }
 
-    private void LoadRecyclerView() {
-        imageRecyclerView = activityImageListBinding.recyclerView;
-        imageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        imageAdapter = new ImageAdapter();
-        imageAdapter.setImages(imageList);
         imageAdapter.setOnDeleteClickListener(new ImageAdapter.OnDeleteClickListener() {
             @Override
             public void onDeleteClick(Image image) {
@@ -75,13 +67,17 @@ public class ImageListActivity extends AppCompatActivity {
                 imageListActivityViewModel.deleteImage(image);
             }
         });
+        imageRecyclerView = activityImageListBinding.recyclerView;
+        imageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         imageRecyclerView.setAdapter(imageAdapter);
+    }
+
+    private void LoadRecyclerView() {
+        imageAdapter.setImages(imageList);
     }
 
 
     public class ImageListActivityClickHandler {
-
-
         public void onAddClicked(View view) {
             // insert Image from here
             InsertImageFragment insertImageFragment = new InsertImageFragment();
