@@ -1,11 +1,14 @@
 package com.example.oblig2dat153.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,12 +18,15 @@ import com.example.oblig2dat153.databinding.ImageItemBinding;
 import com.example.oblig2dat153.model.Image;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 
     private ArrayList<Image> imageList = new ArrayList<>();
 
     private OnDeleteClickListener onDeleteClickListener;
+
+    Boolean sorted = false;
 
 
     @NonNull
@@ -64,14 +70,20 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         }
     }
 
+    public void setSorted(Boolean sorted) {
+        this.sorted = sorted;
+    }
 
     public void setImages(ArrayList<Image> newImageList) {
-        final DiffUtil.DiffResult result = DiffUtil.calculateDiff
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff
                 (new ImageDiffCallback(imageList, newImageList), false);
 
         imageList = newImageList;
-        result.dispatchUpdatesTo(ImageAdapter.this);
 
+        if (sorted) {
+            Collections.sort(imageList);
+        }
+        result.dispatchUpdatesTo(ImageAdapter.this);
     }
 
     public interface OnDeleteClickListener {

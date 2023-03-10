@@ -65,19 +65,19 @@ public abstract class ImageDatabase extends RoomDatabase {
                 byte[] byteImageScoopyDooPido = ConverterHelper.fromDrawableToByteArray(ctx, R.drawable.scooby_doo_pido);
 
                 Image cliffordImage = new Image();
-                cliffordImage.setImageName("\uD83D\uDC15Clifford");
+                cliffordImage.setImageName("Clifford");
                 cliffordImage.setImageData(byteImageClifford);
 
                 Image brianGriffenImage = new Image();
-                brianGriffenImage.setImageName("\uD83D\uDC15Brian Griffen");
+                brianGriffenImage.setImageName("Brian Griffen");
                 brianGriffenImage.setImageData(byteImageBrianGriffen);
 
                 Image plutoImage = new Image();
-                plutoImage.setImageName("\uD83D\uDC15Pluto");
+                plutoImage.setImageName("Pluto");
                 plutoImage.setImageData(byteImagePluto);
 
                 Image scoopyDooPidoImage = new Image();
-                scoopyDooPidoImage.setImageName("\uD83D\uDC15Scoopy Doo Pido");
+                scoopyDooPidoImage.setImageName("Scoopy Doo Pido");
                 scoopyDooPidoImage.setImageData(byteImageScoopyDooPido);
 
                 imageDAO.insert(cliffordImage);

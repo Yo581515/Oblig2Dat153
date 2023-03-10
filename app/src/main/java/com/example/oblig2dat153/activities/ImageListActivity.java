@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +21,8 @@ import com.example.oblig2dat153.model.Image;
 import com.example.oblig2dat153.viewmodel.ImageListActivityViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ImageListActivity extends AppCompatActivity {
@@ -48,17 +51,24 @@ public class ImageListActivity extends AppCompatActivity {
         activityImageListBinding.setClickHandler(clickHandler);
         imageAdapter = new ImageAdapter();
 
+        imageListActivityViewModel.getSorted().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                Log.d("Yosafe", "sorted is set to ------> " + imageListActivityViewModel.getSorted().getValue());
+
+                imageAdapter.setSorted(aBoolean);
+            }
+        });
+
         imageListActivityViewModel.getAllImages().observe(this, new Observer<List<Image>>() {
             @Override
             public void onChanged(List<Image> images) {
                 imageList = (ArrayList<Image>) images;
-
-                for (Image i : images) {
-                    Log.i("Yosafe", i.getId() + "    " + i.getImageName());
-                }
-                LoadRecyclerView();
+                Log.d("Yosafe", "getAllimages observable " + imageListActivityViewModel.getSorted().getValue());
+                LoadRecyclerView(imageListActivityViewModel.getSorted().getValue());
             }
         });
+
 
         imageAdapter.setOnDeleteClickListener(new ImageAdapter.OnDeleteClickListener() {
             @Override
@@ -72,7 +82,10 @@ public class ImageListActivity extends AppCompatActivity {
         imageRecyclerView.setAdapter(imageAdapter);
     }
 
-    private void LoadRecyclerView() {
+    private void LoadRecyclerView(boolean sorted) {
+        for (Image i : imageList) {
+            Log.i("Yosafe", i.getId() + "    " + i.getImageName());
+        }
         imageAdapter.setImages(imageList);
     }
 
@@ -90,5 +103,11 @@ public class ImageListActivity extends AppCompatActivity {
             });
             insertImageFragment.show(getSupportFragmentManager(), "adding new image");
         }
+
+        public void onSortClicked(View view) {
+            imageListActivityViewModel.setSorted(!imageListActivityViewModel.getSorted().getValue());
+            LoadRecyclerView(imageListActivityViewModel.getSorted().getValue());
+        }
     }
+
 }

@@ -3,6 +3,7 @@ package com.example.oblig2dat153.repository;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Query;
 
 import com.example.oblig2dat153.dao.ImageDAO;
 import com.example.oblig2dat153.database.ImageDatabase;
@@ -23,12 +24,20 @@ public class ImageRepository {
         this.imageDAO = imageDatabase.imageDAO();
     }
 
-    public LiveData<List<Image>> getAllImages(){
+    public LiveData<List<Image>> getAllImages() {
         images = imageDAO.getAllImages();
         return images;
     }
+/*    public LiveData<List<Image>> getAllImagesSortedAZ() {
+        images = imageDAO.getAllImagesSortedAZ();
+        return images;
+    }
+    public LiveData<List<Image>> getAllImagesSortedZA() {
+        images = imageDAO.getAllImagesSortedZA();
+        return images;
+    }*/
 
-    public void addImage(Image image){
+    public void addImage(Image image) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(new Runnable() {
             @Override
@@ -39,7 +48,7 @@ public class ImageRepository {
         });
     }
 
-    public void deleteImage(Image image){
+    public void deleteImage(Image image) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         executor.execute(new Runnable() {

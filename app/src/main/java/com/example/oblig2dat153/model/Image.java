@@ -14,11 +14,12 @@ import androidx.room.PrimaryKey;
 
 import com.example.oblig2dat153.Utils.GliderUtils;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 
 @Entity(tableName = "image")
-public class Image extends BaseObservable {
+public class Image extends BaseObservable implements Comparable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
@@ -33,7 +34,6 @@ public class Image extends BaseObservable {
     public static void loadImage(ImageView view, byte[] imageData) {
         GliderUtils.insertByteArrayMapToImageView(view, imageData);
     }
-
 
 
     @Ignore
@@ -77,10 +77,6 @@ public class Image extends BaseObservable {
 
     }
 
-    @Override
-    public String toString() {
-        return this.imageName;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -91,8 +87,24 @@ public class Image extends BaseObservable {
                 && imageName == image.getImageName();
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(id, imageName);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (this == o) return 0;
+        if (o == null || getClass() != o.getClass()) return -1;
+        Image image = (Image) o;
+        return imageName.toLowerCase().compareTo(image.getImageName().toLowerCase());
+    }
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "imageName='" + imageName + '\'' +
+                '}';
     }
 }
