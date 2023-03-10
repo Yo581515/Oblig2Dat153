@@ -3,6 +3,7 @@ package com.example.oblig2dat153.activities;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +22,6 @@ import com.example.oblig2dat153.model.Image;
 import com.example.oblig2dat153.viewmodel.ImageListActivityViewModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ImageListActivity extends AppCompatActivity {
@@ -51,12 +50,11 @@ public class ImageListActivity extends AppCompatActivity {
         activityImageListBinding.setClickHandler(clickHandler);
         imageAdapter = new ImageAdapter();
 
-        imageListActivityViewModel.getSorted().observe(this, new Observer<Boolean>() {
+        imageListActivityViewModel.getSorted().observe(this, new Observer<Integer>() {
             @Override
-            public void onChanged(Boolean aBoolean) {
+            public void onChanged(Integer sorted) {
                 Log.d("Yosafe", "sorted is set to ------> " + imageListActivityViewModel.getSorted().getValue());
-
-                imageAdapter.setSorted(aBoolean);
+                imageAdapter.setSorted(sorted);
             }
         });
 
@@ -65,7 +63,7 @@ public class ImageListActivity extends AppCompatActivity {
             public void onChanged(List<Image> images) {
                 imageList = (ArrayList<Image>) images;
                 Log.d("Yosafe", "getAllimages observable " + imageListActivityViewModel.getSorted().getValue());
-                LoadRecyclerView(imageListActivityViewModel.getSorted().getValue());
+                LoadRecyclerView();
             }
         });
 
@@ -82,7 +80,7 @@ public class ImageListActivity extends AppCompatActivity {
         imageRecyclerView.setAdapter(imageAdapter);
     }
 
-    private void LoadRecyclerView(boolean sorted) {
+    private void LoadRecyclerView() {
         for (Image i : imageList) {
             Log.i("Yosafe", i.getId() + "    " + i.getImageName());
         }
@@ -105,8 +103,16 @@ public class ImageListActivity extends AppCompatActivity {
         }
 
         public void onSortClicked(View view) {
-            imageListActivityViewModel.setSorted(!imageListActivityViewModel.getSorted().getValue());
-            LoadRecyclerView(imageListActivityViewModel.getSorted().getValue());
+            Integer sortValue = imageListActivityViewModel.getSorted().getValue();
+            imageListActivityViewModel.setSorted(sortValue == 0 ? 1 : 0);
+            LoadRecyclerView();
+            Button btn = (Button) view;
+            if(sortValue==0){
+                btn.setText("SORT BY ID");
+            }else {
+                btn.setText("SORT BY NAME");
+            }
+
         }
     }
 

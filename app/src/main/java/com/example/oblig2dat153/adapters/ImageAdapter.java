@@ -19,6 +19,7 @@ import com.example.oblig2dat153.model.Image;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 
@@ -26,7 +27,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     private OnDeleteClickListener onDeleteClickListener;
 
-    Boolean sorted = false;
+    private Integer sorted = 0;
 
 
     @NonNull
@@ -70,18 +71,28 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         }
     }
 
-    public void setSorted(Boolean sorted) {
+    public void setSorted(Integer sorted) {
         this.sorted = sorted;
     }
 
     public void setImages(ArrayList<Image> newImageList) {
+
+        ArrayList<Image> tempList = (ArrayList<Image>) newImageList.stream().collect(Collectors.toList());
+
         DiffUtil.DiffResult result = DiffUtil.calculateDiff
-                (new ImageDiffCallback(imageList, newImageList), false);
+                (new ImageDiffCallback(imageList, tempList), false);
 
-        imageList = newImageList;
+        imageList = tempList;
 
-        if (sorted) {
+        Log.i("Yosafe", "sorted value is + "+sorted);
+
+        if (sorted != 0) {
             Collections.sort(imageList);
+            Log.i("Yosafe", "sorting A-Z");
+            if (sorted == -1) {
+                Collections.reverse(imageList);
+                Log.i("Yosafe", "sorting Z-A");
+            }
         }
         result.dispatchUpdatesTo(ImageAdapter.this);
     }

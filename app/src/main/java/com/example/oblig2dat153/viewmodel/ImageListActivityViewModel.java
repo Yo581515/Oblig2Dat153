@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -21,7 +22,8 @@ public class ImageListActivityViewModel extends AndroidViewModel {
 
     private LiveData<List<Image>> images;
 
-    MutableLiveData<Boolean> sorted = new MutableLiveData<>(false);
+    MutableLiveData<Integer> sorted = new MutableLiveData<>(0);
+
 
     public ImageListActivityViewModel(@NonNull Application application) {
         super(application);
@@ -33,11 +35,12 @@ public class ImageListActivityViewModel extends AndroidViewModel {
         return images;
     }
 
-    public void setSorted(boolean sorted) {
-        this.sorted.setValue(sorted);
+    @Nullable
+    public void setSorted(Integer sorted) {
+            this.sorted.setValue(sorted);
     }
 
-    public MutableLiveData<Boolean> getSorted() {
+    public MutableLiveData<Integer> getSorted() {
         return sorted;
     }
 
