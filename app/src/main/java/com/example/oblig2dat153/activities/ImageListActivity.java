@@ -1,5 +1,6 @@
 package com.example.oblig2dat153.activities;
 
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,16 +27,15 @@ import java.util.List;
 public class ImageListActivity extends AppCompatActivity {
 
     private ImageListActivityViewModel imageListActivityViewModel;
-
     ActivityImageListBinding activityImageListBinding;
-
     private ImageListActivityClickHandler clickHandler;
 
     // RecyclerView
     private ArrayList<Image> imageList;
-
+    private ArrayList<Image> imageListSortedById;
+    private ArrayList<Image> imageListSortedAZ;
+    private ArrayList<Image> imageListSortedZA;
     RecyclerView imageRecyclerView;
-
     private ImageAdapter imageAdapter;
 
 
@@ -49,30 +48,54 @@ public class ImageListActivity extends AppCompatActivity {
         clickHandler = new ImageListActivityClickHandler();
         activityImageListBinding.setClickHandler(clickHandler);
         imageAdapter = new ImageAdapter();
-
-        imageListActivityViewModel.getSorted().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer sorted) {
-                Log.d("Yosafe", "sorted is set to ------> " + imageListActivityViewModel.getSorted().getValue());
-                imageAdapter.setSorted(sorted);
-            }
-        });
+        activityImageListBinding.setIsLoading(true);
 
         imageListActivityViewModel.getAllImages().observe(this, new Observer<List<Image>>() {
             @Override
             public void onChanged(List<Image> images) {
-                imageList = (ArrayList<Image>) images;
-                Log.d("Yosafe", "getAllimages observable " + imageListActivityViewModel.getSorted().getValue());
-                LoadRecyclerView();
+                imageListSortedById = (ArrayList<Image>) images;
+                Integer sorted = imageListActivityViewModel.getSorted().getValue();
+                if (sorted == 0) {
+                    activityImageListBinding.setIsLoading(true);
+                    imageList = imageListSortedById;
+                    LoadRecyclerView();
+                }
             }
         });
 
+        imageListActivityViewModel.getAllImagesAZ().observe(this, new Observer<List<Image>>() {
+            @Override
+            public void onChanged(List<Image> images) {
+                imageListSortedAZ = (ArrayList<Image>) images;
+                Integer sorted = imageListActivityViewModel.getSorted().getValue();
+                if (sorted == 1) {
+                    activityImageListBinding.setIsLoading(true);
+                    imageList = imageListSortedAZ;
+                    LoadRecyclerView();
+
+                }
+            }
+        });
+
+        imageListActivityViewModel.getAllImagesZA().observe(this, new Observer<List<Image>>() {
+            @Override
+            public void onChanged(List<Image> images) {
+                imageListSortedZA = (ArrayList<Image>) images;
+                Integer sorted = imageListActivityViewModel.getSorted().getValue();
+                if (sorted == -1) {
+                    activityImageListBinding.setIsLoading(true);
+                    imageList = imageListSortedZA;
+                    LoadRecyclerView();
+                }
+            }
+        });
 
         imageAdapter.setOnDeleteClickListener(new ImageAdapter.OnDeleteClickListener() {
             @Override
             public void onDeleteClick(Image image) {
                 Log.d("Yosafe", "delete.... image with id " + image.getId());
                 imageListActivityViewModel.deleteImage(image);
+                activityImageListBinding.setIsLoading(true);
             }
         });
         imageRecyclerView = activityImageListBinding.recyclerView;
@@ -84,9 +107,11 @@ public class ImageListActivity extends AppCompatActivity {
         for (Image i : imageList) {
             Log.i("Yosafe", i.getId() + "    " + i.getImageName());
         }
+        if (imageList != null && imageList.size() > 0) {
+            activityImageListBinding.setIsLoading(false);
+        }
         imageAdapter.setImages(imageList);
     }
-
 
     public class ImageListActivityClickHandler {
         public void onAddClicked(View view) {
@@ -97,23 +122,31 @@ public class ImageListActivity extends AppCompatActivity {
                 public void onAddClick(Image image) {
                     Toast.makeText(ImageListActivity.this, "adding " + image.getImageName(), Toast.LENGTH_SHORT).show();
                     imageListActivityViewModel.addNewImage(image);
+                    activityImageListBinding.setIsLoading(true);
+
                 }
             });
             insertImageFragment.show(getSupportFragmentManager(), "adding new image");
         }
 
-        public void onSortClicked(View view) {
-            Integer sortValue = imageListActivityViewModel.getSorted().getValue();
-            imageListActivityViewModel.setSorted(sortValue == 0 ? 1 : 0);
-            LoadRecyclerView();
-            Button btn = (Button) view;
-            if(sortValue==0){
-                btn.setText("SORT BY ID");
-            }else {
-                btn.setText("SORT BY NAME");
-            }
 
+        public void onSortClicked(View view) {
+
+            Button btn = (Button) view;
+            Integer sortTo = Integer.parseInt(btn.getTag().toString());
+            imageListActivityViewModel.setSorted(sortTo);
+
+            sortTo = imageListActivityViewModel.getSorted().getValue();
+            if (sortTo == 0 && imageList != imageListSortedById) {
+                imageList = imageListSortedById;
+                LoadRecyclerView();
+            } else if (sortTo == 1 && imageList != imageListSortedAZ) {
+                imageList = imageListSortedAZ;
+                LoadRecyclerView();
+            } else if (sortTo == -1 && imageList != imageListSortedZA) {
+                imageList = imageListSortedZA;
+                LoadRecyclerView();
+            }
         }
     }
-
 }

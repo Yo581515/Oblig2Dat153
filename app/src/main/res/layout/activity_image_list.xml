@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
 
@@ -9,6 +8,12 @@
         <variable
             name="clickHandler"
             type="com.example.oblig2dat153.activities.ImageListActivity.ImageListActivityClickHandler" />
+
+        <variable
+            name="isLoading"
+            type="Boolean" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
@@ -21,40 +26,82 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/add_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:onClick="@{clickHandler::onAddClicked}"
-                android:text="add image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
 
-            <Button
-                android:id="@+id/sort_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="48dp"
-                android:text="sort A-Z"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.668"
-                app:layout_constraintStart_toEndOf="@+id/add_btn"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                android:onClick="@{clickHandler::onSortClicked}"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:showIn="@layout/activity_main">
+
+                <Button
+                    android:id="@+id/add_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{clickHandler::onAddClicked}"
+                    android:text="add image" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/sort_by_id_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:onClick="@{clickHandler::onSortClicked}"
+                        android:tag="0"
+                        android:text="SORT BY ID" />
+
+
+                    <Button
+                        android:id="@+id/sort_by_name_az_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:onClick="@{clickHandler::onSortClicked}"
+                        android:tag="1"
+                        android:text="SORT BY NAME ASC" />
+
+
+                    <Button
+                        android:id="@+id/sort_by_name_za_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:onClick="@{clickHandler::onSortClicked}"
+                        android:tag="-1"
+                        android:text="SORT BY NAME DESC" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp" />
+            android:layout_margin="8dp">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
     </LinearLayout>
 
 </layout>

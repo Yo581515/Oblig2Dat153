@@ -22,6 +22,12 @@ public class ImageListActivityViewModel extends AndroidViewModel {
 
     private LiveData<List<Image>> images;
 
+
+    private LiveData<List<Image>> sortedImagesAZ;
+
+    private LiveData<List<Image>> sortedImagesZA;
+
+
     MutableLiveData<Integer> sorted = new MutableLiveData<>(0);
 
 
@@ -34,6 +40,18 @@ public class ImageListActivityViewModel extends AndroidViewModel {
         images = imageRepository.getAllImages();
         return images;
     }
+
+    public LiveData<List<Image>> getAllImagesAZ() {
+        sortedImagesAZ = imageRepository.getAllImagesSortedAZ();
+        return sortedImagesAZ;
+    }
+
+    public LiveData<List<Image>> getAllImagesZA() {
+        sortedImagesZA = imageRepository.getAllImagesSortedZA();
+        return sortedImagesZA;
+    }
+
+
 
     @Nullable
     public void setSorted(Integer sorted) {

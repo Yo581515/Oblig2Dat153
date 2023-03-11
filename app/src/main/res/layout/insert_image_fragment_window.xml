@@ -33,15 +33,42 @@
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginBottom="50dp"
-            android:contentDescription="click to insert image"
-            android:onClick="@{clickHandler::onImageClick}"
-            bind:imageBinde="@{image.imageData}"
-            tools:ignore="HardcodedText" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/gallery_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="click to insert image"
+                android:onClick="@{clickHandler::onImageClick}"
+                bind:imageBinde="@{image.imageData}"
+                bind:layout_constraintBottom_toBottomOf="parent"
+                bind:layout_constraintEnd_toStartOf="@+id/camera_image"
+                bind:layout_constraintHorizontal_bias="0.327"
+                bind:layout_constraintStart_toStartOf="parent"
+                bind:layout_constraintTop_toTopOf="parent"
+                bind:layout_constraintVertical_bias="0.0"
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:id="@+id/camera_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="52dp"
+                android:contentDescription="click to insert image"
+                android:onClick="@{clickHandler::onImageClick}"
+                android:src="@drawable/baseline_camera_alt_24"
+                bind:layout_constraintBottom_toBottomOf="parent"
+                bind:layout_constraintEnd_toEndOf="parent"
+                bind:layout_constraintTop_toTopOf="parent"
+                bind:layout_constraintVertical_bias="0.0"
+                tools:ignore="HardcodedText" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

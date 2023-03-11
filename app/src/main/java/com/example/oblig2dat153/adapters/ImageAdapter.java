@@ -27,7 +27,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     private OnDeleteClickListener onDeleteClickListener;
 
-    private Integer sorted = 0;
 
 
     @NonNull
@@ -71,29 +70,15 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         }
     }
 
-    public void setSorted(Integer sorted) {
-        this.sorted = sorted;
-    }
 
     public void setImages(ArrayList<Image> newImageList) {
 
-        ArrayList<Image> tempList = (ArrayList<Image>) newImageList.stream().collect(Collectors.toList());
 
         DiffUtil.DiffResult result = DiffUtil.calculateDiff
-                (new ImageDiffCallback(imageList, tempList), false);
+                (new ImageDiffCallback(imageList, newImageList), false);
 
-        imageList = tempList;
+        imageList = newImageList;
 
-        Log.i("Yosafe", "sorted value is + "+sorted);
-
-        if (sorted != 0) {
-            Collections.sort(imageList);
-            Log.i("Yosafe", "sorting A-Z");
-            if (sorted == -1) {
-                Collections.reverse(imageList);
-                Log.i("Yosafe", "sorting Z-A");
-            }
-        }
         result.dispatchUpdatesTo(ImageAdapter.this);
     }
 

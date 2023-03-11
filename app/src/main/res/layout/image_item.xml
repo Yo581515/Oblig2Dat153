@@ -21,11 +21,13 @@
         android:layout_height="wrap_content">
 
         <!--        app:imageData="@{image.imageData}"-->
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,8 +35,8 @@
 
         <TextView
             android:id="@+id/textview"
-            android:layout_width="169dp"
-            android:layout_height="wrap_content"
+            android:layout_width="179dp"
+            android:layout_height="30dp"
             android:layout_marginStart="24dp"
             android:gravity="center"
             android:text="@{image.imageName}"
@@ -57,5 +59,30 @@
             app:layout_constraintBottom_toBottomOf="@+id/textview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textview" />
+
+        <TextView
+            android:id="@+id/id_txt"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="id: "
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/id"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="@{String.valueOf(image.id)}"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/id_txt"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/id_txt" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
