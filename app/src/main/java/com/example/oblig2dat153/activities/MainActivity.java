@@ -47,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         public void onPlayQuizeBtnClicked(View view) {
-
-            Toast.makeText(MainActivity.this, "" + mainActivityViewModel.getMode().getValue(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+            startActivity(intent);
 
         }
 
         public void onImageListBtnClicked(View view) {
-            Intent intent = new Intent(getApplicationContext(), ImageListActivity.class);
+            Intent intent = new Intent(MainActivity.this, ImageListActivity.class);
             startActivity(intent);
         }
 
