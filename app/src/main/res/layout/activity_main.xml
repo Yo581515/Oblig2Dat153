@@ -1,18 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <variable
+            name="clickHandler"
+            type="com.example.oblig2dat153.activities.MainActivity.MainActivityClickHandlers" />
+
+        <variable
+            name="mode"
+            type="Boolean" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.MainActivity">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="221dp"
+            android:layout_height="184dp"
+            android:layout_marginTop="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/quiz_logo" />
+
+
+        <Button
+            android:id="@+id/play_quiz_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:onClick="@{clickHandler::onPlayQuizeBtnClicked}"
+            android:text="Play Quiz"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <Button
+            android:id="@+id/entity_list_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:onClick="@{clickHandler::onImageListBtnClicked}"
+            android:text="Animal List"
+            app:layout_constraintEnd_toEndOf="@+id/play_quiz_btn"
+            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintStart_toStartOf="@+id/play_quiz_btn"
+            app:layout_constraintTop_toBottomOf="@+id/play_quiz_btn" />
+
+        <Switch
+            android:id="@+id/mode_switcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:onClick="@{clickHandler::onModeSwitchClicked}"
+            android:textSize="48dp"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="@{mode ? `HARD MODE` : `EASY MODE`}"
+            android:textColor="@{mode ? @color/red : @color/green}"
+            app:layout_constraintEnd_toEndOf="@+id/entity_list_btn"
+            app:layout_constraintHorizontal_bias="0.475"
+            app:layout_constraintStart_toStartOf="@+id/entity_list_btn"
+            app:layout_constraintTop_toBottomOf="@+id/entity_list_btn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
