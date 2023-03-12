@@ -29,7 +29,7 @@ public class ImageDiffCallback extends DiffUtil.Callback{
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return false;
+        return oldImageList.get(oldItemPosition).getId()==newImageList.get(newItemPosition).getId();
     }
 
     @Override
