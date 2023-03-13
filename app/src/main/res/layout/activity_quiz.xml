@@ -113,6 +113,7 @@
                 android:layout_margin="16dp"
                 android:layout_marginStart="16dp"
                 bind:imageBinde="@{image.imageData}"
+                android:tag="name"
                 />
 
 

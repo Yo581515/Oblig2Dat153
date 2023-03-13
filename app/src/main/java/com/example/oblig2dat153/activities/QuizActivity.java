@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 public class QuizActivity extends AppCompatActivity {
 
-    ActivityQuizBinding activityQuizBinding;
+    public ActivityQuizBinding activityQuizBinding;
     QuizActivityViewModel quizActivityViewModel;
 
     QuizActivityClickHandlers clickHandlers;
