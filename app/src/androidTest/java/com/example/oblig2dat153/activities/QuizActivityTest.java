@@ -1,6 +1,5 @@
 package com.example.oblig2dat153.activities;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -8,13 +7,9 @@ import static org.junit.Assert.assertNotNull;
 import android.util.Log;
 import android.widget.RadioButton;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.test.espresso.IdlingRegistry;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.example.oblig2dat153.R;
-import com.example.oblig2dat153.activities.QuizActivity;
 import com.example.oblig2dat153.databinding.ActivityQuizBinding;
 import com.example.oblig2dat153.model.Image;
 

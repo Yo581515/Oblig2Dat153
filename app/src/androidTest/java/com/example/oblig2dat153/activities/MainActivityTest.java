@@ -16,7 +16,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import com.example.oblig2dat153.R;
-import com.example.oblig2dat153.activities.MainActivity;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
