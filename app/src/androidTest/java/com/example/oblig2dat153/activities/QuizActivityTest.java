@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNotNull;
 import android.util.Log;
 import android.widget.RadioButton;
 
+
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -51,7 +52,7 @@ public class QuizActivityTest {
 
             assertNotNull(correctRadioButton);
 
-            Log.d("Yosafe : ","correct answer : "+correctRadioButton.getText().toString());
+            Log.d("Yosafe : ", "correct answer : " + correctRadioButton.getText().toString());
 
             // Click the correct RadioButton
             correctRadioButton.performClick();
@@ -75,7 +76,7 @@ public class QuizActivityTest {
 
             assertNotNull(correctAnswer);
 
-            // Determine which RadioButton is the correct answer
+            // Determine which RadioButton is the wrong answer
             RadioButton wrongRadioButton = null;
             if (!correctAnswer.getImageName().equals(binding.radio1.getText().toString())) {
                 wrongRadioButton = binding.radio1;
@@ -87,14 +88,17 @@ public class QuizActivityTest {
 
             assertNotNull(wrongRadioButton);
 
-            Log.d("Yosafe : ","wrong answer : "+wrongRadioButton.getText().toString());
+            Log.d("Yosafe : ", "wrong answer : " + wrongRadioButton.getText().toString());
 
-            // Click the correct RadioButton
+            // Click the wrong RadioButton
             wrongRadioButton.performClick();
 
             int updatedScore = Integer.parseInt(binding.scoreNumber.getText().toString());
-            // Check that the score has increased by 1
-            assertEquals(initialScore , updatedScore);
+            // Check that the score has not increased by 1
+            assertEquals(initialScore, updatedScore);
         });
     }
+
+
+
 }

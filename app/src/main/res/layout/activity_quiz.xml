@@ -2,23 +2,27 @@
 
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:id="@+id/activity_quiz">
 
     <data>
+
         <variable
             name="image"
             type="com.example.oblig2dat153.model.Image" />
+
         <variable
             name="image0"
             type="com.example.oblig2dat153.model.Image" />
+
         <variable
             name="image1"
             type="com.example.oblig2dat153.model.Image" />
+
         <variable
             name="image2"
             type="com.example.oblig2dat153.model.Image" />
+
         <variable
             name="clickHandler"
             type="com.example.oblig2dat153.activities.QuizActivity.QuizActivityClickHandlers" />
@@ -112,9 +116,8 @@
                 android:layout_height="200dp"
                 android:layout_margin="16dp"
                 android:layout_marginStart="16dp"
-                bind:imageBinde="@{image.imageData}"
                 android:tag="name"
-                />
+                bind:imageBinde="@{image.imageData}" />
 
 
         </LinearLayout>
@@ -132,8 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:onCheckedChanged="@{clickHandler::onNameChoden}"
-                >
+                android:onCheckedChanged="@{clickHandler::onNameChoden}">
 
                 <RadioButton
                     android:id="@+id/radio_1"

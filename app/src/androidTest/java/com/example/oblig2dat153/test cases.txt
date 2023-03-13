@@ -1,0 +1,12 @@
+clicking a button in the main-menu takes you to the right sub-activity
+(i.e. to the Quiz or the Database; testing one button is enough);
+
+is the score updated correctly in the quiz (submit right/wrong answer
+and check if the score is correct afterwards);
+
+a test that checks that the number of registered pictures/persons is correct after adding/deleting
+an entry. For adding, use Intent Stubbing to return some image data (e.g. from the resource-folder)
+without any user interaction.
+
+Test that the quiz can be exited: In the QuizActivity,
+press the back button and check that the user is returned to the MainActivity.
