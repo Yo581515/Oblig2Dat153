@@ -6,9 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.ImageDecoder;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,7 +18,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.oblig2dat153.R;
@@ -50,18 +47,9 @@ public class InsertImageFragment extends AppCompatDialogFragment {
     }
 
 
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.baseline_image_search_24);
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        byte[] byteImage = ConverterHelper.BitmapToByteArray(bitmap);
-        image.setImageData(byteImage);
 
         // binding tools
         // 1) initieate binder
@@ -86,9 +74,11 @@ public class InsertImageFragment extends AppCompatDialogFragment {
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        boolean emptyText = TextUtils.isEmpty(image.getImageName());
+                        boolean emptyImage = image.getImageData() == null;
 
-                        if (TextUtils.isEmpty(image.getImageName())) {
-                            Toast.makeText(getActivity().getApplication(), "Please Enter a Name", Toast.LENGTH_SHORT).show();
+                        if (emptyText || emptyImage) {
+                            Toast.makeText(getActivity().getApplication(), "Please Enter a Name and Add an Image", Toast.LENGTH_SHORT).show();
                             return;
                         } else {
                             getDialog().dismiss();
@@ -119,11 +109,18 @@ public class InsertImageFragment extends AppCompatDialogFragment {
                     Intent.ACTION_PICK,
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             );
-            launcher.launch(intent);
+            launcherForImageFetchingFromGallery.launch(intent);
+        }
+
+        public void onCameraClick(View view) {
+            Intent intent = new Intent(
+                    MediaStore.ACTION_IMAGE_CAPTURE
+            );
+            launcherForImageFetchingFromCamera.launch(intent);
         }
     }
 
-    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+    private final ActivityResultLauncher<Intent> launcherForImageFetchingFromGallery = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK
@@ -137,6 +134,17 @@ public class InsertImageFragment extends AppCompatDialogFragment {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+                }
+            }
+    );
+    private final ActivityResultLauncher<Intent> launcherForImageFetchingFromCamera = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK
+                        && result.getData() != null) {
+                    Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
+                    byte[] byteImage = ConverterHelper.BitmapToByteArray(photo);
+                    image.setImageData(byteImage);
                 }
             }
     );

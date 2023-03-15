@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     >
     <data>
         <variable
@@ -34,6 +35,7 @@
             bind:imageBinde="@{image.imageData}" />
 
         <TextView
+            android:textColor="@color/black"
             android:id="@+id/textview"
             android:layout_width="179dp"
             android:layout_height="30dp"
@@ -67,6 +69,7 @@
             android:layout_marginTop="4dp"
             android:gravity="center"
             android:text="id: "
+            android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintEnd_toStartOf="@+id/id"
             app:layout_constraintHorizontal_bias="0.0"
@@ -78,6 +81,7 @@
             android:layout_width="40dp"
             android:layout_height="30dp"
             android:gravity="center"
+            android:textColor="@color/black"
             android:text="@{String.valueOf(image.id)}"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/id_txt"

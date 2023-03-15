@@ -31,6 +31,7 @@ public class QuizActivityTest {
 
         // Get a reference to the QuizActivity
         activityScenarioRule.getScenario().onActivity(activity -> {
+
             // Use the QuizActivity instance to set up the test
             ActivityQuizBinding binding = activity.activityQuizBinding;
             int initialScore = Integer.parseInt(binding.scoreNumber.getText().toString());
