@@ -14,7 +14,6 @@ import androidx.room.PrimaryKey;
 
 import com.example.oblig2dat153.Utils.GliderUtils;
 
-import java.util.Comparator;
 import java.util.Objects;
 
 
@@ -83,14 +82,13 @@ public class Image extends BaseObservable implements Comparable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Image image = (Image) o;
-        return id == image.getId()
-                && imageName == image.getImageName();
+        return imageName == image.getImageName();
     }
 
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, imageName);
+        return Objects.hash(imageName);
     }
 
     @Override

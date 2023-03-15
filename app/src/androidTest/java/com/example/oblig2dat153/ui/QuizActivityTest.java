@@ -1,4 +1,4 @@
-package com.example.oblig2dat153.activities;
+package com.example.oblig2dat153.ui;
 
 
 import static org.junit.Assert.assertEquals;
@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.example.oblig2dat153.activities.QuizActivity;
 import com.example.oblig2dat153.databinding.ActivityQuizBinding;
 import com.example.oblig2dat153.model.Image;
 
