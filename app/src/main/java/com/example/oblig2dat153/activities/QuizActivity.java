@@ -68,7 +68,6 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-        t.start();
 
        /* try {
             t.join();
@@ -86,6 +85,7 @@ public class QuizActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mode = intent.getStringExtra("mode");
         Toast.makeText(this, mode, Toast.LENGTH_SHORT).show();
+        t.start();
     }
 
     private void displayQuestion(Image image) {
