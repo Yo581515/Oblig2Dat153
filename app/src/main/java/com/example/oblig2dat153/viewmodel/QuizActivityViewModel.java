@@ -13,7 +13,7 @@ import java.util.List;
 
 public class QuizActivityViewModel extends AndroidViewModel {
 
-    private ImageRepository imageRepository;
+    public ImageRepository imageRepository;
 
     private LiveData<List<Image>> images;
 
@@ -27,4 +27,6 @@ public class QuizActivityViewModel extends AndroidViewModel {
         images = imageRepository.getAllImages();
         return images;
     }
+
+
 }

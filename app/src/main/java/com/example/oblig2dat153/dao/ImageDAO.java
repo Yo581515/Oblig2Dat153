@@ -22,6 +22,9 @@ public interface ImageDAO {
     @Query("SELECT * FROM image")
     LiveData<List<Image>> getAllImages();
 
+    @Query("SELECT * FROM image")
+    List<Image> getAllImages2();
+
     @Query("SELECT * FROM Image ORDER BY LOWER(image_name) ASC")
     LiveData<List<Image>> getAllImagesSortedAZ();
 

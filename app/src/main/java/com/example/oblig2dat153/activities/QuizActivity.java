@@ -1,20 +1,19 @@
 package com.example.oblig2dat153.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.RadioGroup;
 
 import com.example.oblig2dat153.R;
 import com.example.oblig2dat153.databinding.ActivityQuizBinding;
 import com.example.oblig2dat153.model.Image;
 import com.example.oblig2dat153.viewmodel.QuizActivityViewModel;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,9 +25,13 @@ public class QuizActivity extends AppCompatActivity {
 
     QuizActivityClickHandlers clickHandlers;
 
-    ArrayList<Image> imageList;
+    List<Image> imageList;
 
     int currentImageIndex = 0;
+
+    Thread t;
+
+    String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class QuizActivity extends AppCompatActivity {
         activityQuizBinding.setImage(layoutImage);
 
 
-        quizActivityViewModel.getAllImages().observe(this, new Observer<List<Image>>() {
+    /*    quizActivityViewModel.getAllImages().observe(this, new Observer<List<Image>>() {
             @Override
             public void onChanged(List<Image> images) {
                 imageList = (ArrayList<Image>) images;
@@ -51,9 +54,38 @@ public class QuizActivity extends AppCompatActivity {
                     displayQuestion(imageList.get(currentImageIndex));
                 }
             }
+        });*/
+
+
+        t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                imageList = quizActivityViewModel.imageRepository.imageDAO.getAllImages2();
+                Collections.shuffle(imageList);
+                if (!imageList.isEmpty()) {
+                    displayQuestion(imageList.get(currentImageIndex));
+                }
+            }
         });
 
+        t.start();
 
+       /* try {
+            t.join();
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }*/
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        mode = intent.getStringExtra("mode");
+        Toast.makeText(this, mode, Toast.LENGTH_SHORT).show();
     }
 
     private void displayQuestion(Image image) {
@@ -64,7 +96,7 @@ public class QuizActivity extends AppCompatActivity {
         activityQuizBinding.setImage2(randomImageList.get(2));
     }
 
-    private List<Image> find2MoreRandomImages(ArrayList<Image> imageList, Image image) {
+    private List<Image> find2MoreRandomImages(List<Image> imageList, Image image) {
 
         List<Image> filteredList = imageList.stream()
                 .filter(i -> i.getId() != image.getId())

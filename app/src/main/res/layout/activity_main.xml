@@ -13,9 +13,6 @@
             name="clickHandler"
             type="com.example.oblig2dat153.activities.MainActivity.MainActivityClickHandlers" />
 
-        <variable
-            name="mode"
-            type="Boolean" />
 
     </data>
 
@@ -64,7 +61,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="48dp"
-            android:onClick="@{clickHandler::onModeSwitchClicked}"
             android:textSize="48dp"
             app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintStart_toStartOf="@+id/textView"
@@ -75,8 +71,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
-            android:text="@{mode ? `HARD MODE` : `EASY MODE`}"
-            android:textColor="@{mode ? @color/red : @color/green}"
             app:layout_constraintEnd_toEndOf="@+id/entity_list_btn"
             app:layout_constraintHorizontal_bias="0.475"
             app:layout_constraintStart_toStartOf="@+id/entity_list_btn"
